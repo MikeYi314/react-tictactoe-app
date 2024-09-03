@@ -1,32 +1,34 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './ExpenseList.css';
 import ExpenseItem from './ExpenseItem'
 import { MdDelete } from 'react-icons/md';
 
 
-export class ExpenseList extends Component {
-  render() {
-    console.log(this.props.expenses)
+const ExpenseList = ({ expenses, handleDelete, handleEdit, clearItems }) => {
     return (
       <>
         <ul className='list'>
-          {this.props.expenses.map(expenses => {
+          {expenses.map(expense => {
             return (
               <ExpenseItem 
-                expenses={expenses}
-                key={expenses.id}
-                handleDelete={this.props.handleDelete}
+                expense={expense}
+                key={expense.id}
+                handleDelete={handleDelete}
+                handleEdit={handleEdit}
               />
             )
           })}
         </ul>
-        <button className='btn'>
+        {expenses.length > 0 && (
+          <button className='btn'
+            onClick={clearItems}
+          >
           목록 지우기
           <MdDelete className='btn-icon'/>
-        </button>
+          </button>
+        )}
       </> 
     )
   }
-}
 
 export default ExpenseList
